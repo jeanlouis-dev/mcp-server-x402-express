@@ -2,21 +2,21 @@ import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
 import { randomUUID } from "node:crypto";
-//import axios from "axios";
+import axios from "axios";
 import { Hex } from "viem";
-/*import { privateKeyToAccount } from "viem/accounts";
-import { withPaymentInterceptor } from "x402-axios";*/
+import { privateKeyToAccount } from "viem/accounts";
+import { withPaymentInterceptor } from "x402-axios";
 import { paymentMiddleware, Resource, type SolanaAddress } from "x402-express";
-/*import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
-import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";*/
+import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
 config();
 
 
-/*const privateKey = process.env.PRIVATE_KEY as Hex;
+const privateKey = process.env.PRIVATE_KEY as Hex;
 const baseURL = process.env.RESOURCE_SERVER_URL as string; // e.g. https://example.com
-const endpointPath = process.env.ENDPOINT_PATH as string; // e.g. /weather*/
+const endpointPath = process.env.ENDPOINT_PATH as string; // e.g. /weather
 
 const facilitatorUrl = process.env.FACILITATOR_URL as Resource;
 const payTo = process.env.ADDRESS as `0x${string}` | SolanaAddress;
@@ -26,7 +26,7 @@ if (!facilitatorUrl || !payTo) {
   process.exit(1);
 }
 
-/*if (!privateKey || !baseURL || !endpointPath) {
+if (!privateKey || !baseURL || !endpointPath) {
   throw new Error("Missing environment variables");
 }
 
@@ -51,11 +51,11 @@ server.tool(
       content: [{ type: "text", text: JSON.stringify(res.data) }],
     };
   },
-);*/
+);
 
 const app = express();
 app.use(express.json());
-/*app.use(
+app.use(
     cors({
         origin: '*',
         allowedHeaders: ["*"],
@@ -155,7 +155,7 @@ app.post('/messages', async (req, res) => {
   } else {
       res.status(400).send('No transport found for sessionId');
   }
-});*/
+});
 
 app.use(
   paymentMiddleware(
